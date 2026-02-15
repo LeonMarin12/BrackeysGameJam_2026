@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://88npcoe0nnkb"]
+
+[ext_resource type="Texture2D" uid="uid://bve0yp5slx1bq" path="res://Assets/Drop/Drop_placeholder.png" id="1_yk8ix"]
+[ext_resource type="Script" uid="uid://um403ni57c77" path="res://Main/Drop/drop.gd" id="2_ktp8y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2sulb"]
+
+[node name="Drop" type="Sprite2D" unique_id=779324081]
+texture = ExtResource("1_yk8ix")
+script = ExtResource("2_ktp8y")
+drop_name = "drop"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=723080304]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=119508120]
+shape = SubResource("CircleShape2D_2sulb")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

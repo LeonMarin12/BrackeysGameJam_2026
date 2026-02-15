@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://p3k5hxslhfb2"]
+
+[ext_resource type="Script" uid="uid://d08ydya367gsc" path="res://Main/Player/player.gd" id="1_q3lat"]
+[ext_resource type="Texture2D" uid="uid://dfmm62nowgh8l" path="res://Assets/Player/Player_placeholder.png" id="2_tok1r"]
+[ext_resource type="Script" uid="uid://dnn0cxapy0jxe" path="res://Main/Player/light_manager.gd" id="3_ddoul"]
+[ext_resource type="Script" uid="uid://b1n0peqvu12bv" path="res://Main/Player/camera_manager.gd" id="3_s1rgi"]
+[ext_resource type="Texture2D" uid="uid://b8ei2pdwb0oh7" path="res://Assets/Player/light.png" id="4_8g4oa"]
+[ext_resource type="Script" uid="uid://0pirmdu8kxm0" path="res://Main/Player/weapon_manager.gd" id="5_6ysni"]
+[ext_resource type="PackedScene" uid="uid://cdo4ddlvqtia2" path="res://Main/Player/Bullet/bullet.tscn" id="6_s1rgi"]
+[ext_resource type="Texture2D" uid="uid://clvu4aujk2nvb" path="res://Assets/Player/weapon_minirevolver.png" id="6_vlldt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ddoul"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s1rgi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_vlldt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=787664822 groups=["player"]]
+collision_mask = 14
+script = ExtResource("1_q3lat")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1161055138]
+shape = SubResource("CircleShape2D_ddoul")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=613092259]
+texture = ExtResource("2_tok1r")
+
+[node name="CameraManager" type="Camera2D" parent="." unique_id=1949400709]
+script = ExtResource("3_s1rgi")
+
+[node name="LightManager" type="Node2D" parent="." unique_id=1086953237]
+script = ExtResource("3_ddoul")
+
+[node name="PointLight2D" type="PointLight2D" parent="LightManager" unique_id=948513229]
+texture = ExtResource("4_8g4oa")
+texture_scale = 0.3
+
+[node name="WeaponManager" type="Node2D" parent="." unique_id=2089479805]
+script = ExtResource("5_6ysni")
+bullet_scene = ExtResource("6_s1rgi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="WeaponManager" unique_id=1211738706]
+position = Vector2(7, 1)
+sprite_frames = SubResource("SpriteFrames_s1rgi")
+
+[node name="Marker2D" type="Marker2D" parent="WeaponManager" unique_id=555274810]
+unique_name_in_owner = true
+position = Vector2(13, -1)
