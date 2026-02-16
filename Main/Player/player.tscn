@@ -9,7 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://cdo4ddlvqtia2" path="res://Main/Player/Bullet/bullet.tscn" id="6_s1rgi"]
 [ext_resource type="Texture2D" uid="uid://clvu4aujk2nvb" path="res://Assets/Player/weapon_minirevolver.png" id="6_vlldt"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ddoul"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qn1bl"]
+radius = 6.0
+height = 20.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s1rgi"]
 animations = [{
@@ -27,7 +29,7 @@ collision_mask = 14
 script = ExtResource("1_q3lat")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1161055138]
-shape = SubResource("CircleShape2D_ddoul")
+shape = SubResource("CapsuleShape2D_qn1bl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=613092259]
 texture = ExtResource("2_tok1r")

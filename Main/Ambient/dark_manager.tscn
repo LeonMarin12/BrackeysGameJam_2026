@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c23n1ijj64c76"]
+
+[ext_resource type="Script" uid="uid://yu3ueoy111f4" path="res://Main/Ambient/dark_manager.gd" id="1_umbpg"]
+
+[node name="DarkManager" type="CanvasModulate" unique_id=902873304]
+script = ExtResource("1_umbpg")

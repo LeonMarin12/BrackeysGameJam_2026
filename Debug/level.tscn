@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://daeykmc6yagfa" path="res://Assets/ExternalAssets/0x72_DungeonTilesetII_v1.7/atlas_floor-16x16.png" id="2_eq2nm"]
 [ext_resource type="PackedScene" uid="uid://cgafamafmks6e" path="res://Main/Enemy/enemy.tscn" id="5_rjnww"]
 [ext_resource type="PackedScene" uid="uid://88npcoe0nnkb" path="res://Main/Drop/drop.tscn" id="6_up3c0"]
-[ext_resource type="Script" uid="uid://yu3ueoy111f4" path="res://Main/Background/canvas_modulate.gd" id="7_eq2nm"]
+[ext_resource type="PackedScene" uid="uid://c23n1ijj64c76" path="res://Main/Ambient/dark_manager.tscn" id="7_eq2nm"]
 [ext_resource type="Texture2D" uid="uid://qxgegd1cubn2" path="res://Assets/ExternalAssets/0x72_DungeonTilesetII_v1.7/frames/doors_leaf_closed.png" id="7_woqe0"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_up3c0"]
@@ -50,6 +50,7 @@ texture = ExtResource("1_hss3j")
 5:1/0 = 0
 6:1/0 = 0
 7:1/0 = 0
+7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 0.19784546, -8, 0.19784546, 8, -8, 8)
 8:1/0 = 0
 8:1/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_up3c0")
 8:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -67,6 +68,7 @@ texture = ExtResource("1_hss3j")
 5:2/0 = 0
 6:2/0 = 0
 7:2/0 = 0
+7:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 0.19784546, -8, 0.19784546, 8, -8, 8)
 8:2/0 = 0
 8:2/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_msoi8")
 8:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -197,6 +199,4 @@ position = Vector2(122, 218)
 [node name="Drop4" parent="Drops" unique_id=1657029099 instance=ExtResource("6_up3c0")]
 position = Vector2(123, 265)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1611218546]
-color = Color(0.20332193, 0.20332181, 0.20332184, 1)
-script = ExtResource("7_eq2nm")
+[node name="DarkManager" parent="." unique_id=902873304 instance=ExtResource("7_eq2nm")]

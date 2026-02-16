@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cgafamafmks6e" path="res://Main/Enemy/enemy.tscn" id="4_enemy"]
 [ext_resource type="PackedScene" uid="uid://88npcoe0nnkb" path="res://Main/Drop/drop.tscn" id="5_drops"]
 [ext_resource type="Texture2D" uid="uid://dlsm8v6ero26j" path="res://Assets/ExternalAssets/0x72_DungeonTilesetII_v1.7/atlas_walls_high-16x32.png" id="6_pkg7o"]
+[ext_resource type="PackedScene" uid="uid://c23n1ijj64c76" path="res://Main/Ambient/dark_manager.tscn" id="8_n0xby"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_036b0"]
 texture = ExtResource("1_tlwt5")
@@ -383,5 +384,4 @@ tile_set = SubResource("TileSet_deco")
 [node name="DungeonGenerator" type="Node" parent="." unique_id=1897961127]
 script = ExtResource("1_f3sb7")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=876998888]
-color = Color(0.18, 0.18, 0.18, 1)
+[node name="DarkManager" parent="." unique_id=902873304 instance=ExtResource("8_n0xby")]
