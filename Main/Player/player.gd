@@ -13,3 +13,11 @@ func _physics_process(delta):
 func pick_drop(drop_name):
 	if drop_name == 'drop':
 		print('drop picked')
+
+
+func take_recoil(recoil_force, direction):
+	velocity += direction * recoil_force
+
+
+func take_damage(damage):
+	pass
