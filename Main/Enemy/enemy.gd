@@ -19,8 +19,8 @@ func take_damage(damage :float = 1.0):
 
 func drop_loot():
 	var loot =  loot_scene.instantiate()
-	get_tree().root.add_child(loot)
 	loot.global_position = global_position
+	get_tree().root.call_deferred("add_child", loot)
 
 
 func die():
