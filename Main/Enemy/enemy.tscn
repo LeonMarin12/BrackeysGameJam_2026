@@ -4,9 +4,15 @@
 [ext_resource type="PackedScene" uid="uid://88npcoe0nnkb" path="res://Main/Drop/drop.tscn" id="2_1ftki"]
 [ext_resource type="Texture2D" uid="uid://pashwplgokit" path="res://Assets/ExternalAssets/0x72_DungeonTilesetII_v1.7/0x72_DungeonTilesetII_v1.7.png" id="2_nbxsl"]
 [ext_resource type="Texture2D" uid="uid://c10cferx5sevd" path="res://Assets/ExternalAssets/0x72_DungeonTilesetII_v1.7/frames/chort_idle_anim_f0.png" id="3_1ftki"]
+[ext_resource type="Script" uid="uid://b6dpk5xld7ke6" path="res://Main/Enemy/entity_detector_module.gd" id="5_1ftki"]
+[ext_resource type="Script" uid="uid://chiwbvwfhq1x8" path="res://Main/States/state_machine.gd" id="6_ulnfe"]
+[ext_resource type="Script" uid="uid://0qk5bd8q5o38" path="res://Main/States/enemy_idle.gd" id="7_4bh3l"]
+[ext_resource type="Script" uid="uid://dhignevql32fx" path="res://Main/States/enemy_follow.gd" id="8_e3jus"]
+[ext_resource type="Script" uid="uid://cxb43fcddtoxq" path="res://Main/States/enemy_searching.gd" id="9_5an88"]
+[ext_resource type="Script" uid="uid://ci3jqvc4qqapn" path="res://Main/States/enemy_attack.gd" id="10_yynbb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ulnfe"]
-radius = 7.28011
+radius = 6.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4bh3l"]
 atlas = ExtResource("2_nbxsl")
@@ -99,6 +105,98 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5gxkj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4bo1o"]
+radius = 17.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4bh3l"]
+radius = 54.74486
+
+[sub_resource type="Animation" id="Animation_mb6jb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtBox:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+
+[sub_resource type="Animation" id="Animation_3kqtw"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtBox:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.53333336, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5318165, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1.565), Vector2(1, 0.548), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iqic2"]
+_data = {
+&"RESET": SubResource("Animation_mb6jb"),
+&"attack": SubResource("Animation_3kqtw")
+}
+
 [node name="Enemy" type="CharacterBody2D" unique_id=1800310344 groups=["enemies"]]
 collision_layer = 2
 collision_mask = 27
@@ -106,10 +204,82 @@ script = ExtResource("1_jskd6")
 loot_scene = ExtResource("2_1ftki")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1321778770]
+visible = false
+position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_ulnfe")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=311524633]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_fri45")
 animation = &"idle"
-frame_progress = 0.7936952
+frame = 1
+frame_progress = 0.3663471
+
+[node name="HitBox" type="Area2D" parent="." unique_id=1953574548]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox" unique_id=1594787757]
+shape = SubResource("CircleShape2D_5gxkj")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=263416762]
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1001427524]
+shape = SubResource("CircleShape2D_4bo1o")
+
+[node name="EntityDetectorModule" type="Node2D" parent="." unique_id=609225677]
+unique_name_in_owner = true
+visible = false
+script = ExtResource("5_1ftki")
+
+[node name="EntityDetectorArea" type="Area2D" parent="EntityDetectorModule" unique_id=714284935]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityDetectorModule/EntityDetectorArea" unique_id=500079495]
+shape = SubResource("CircleShape2D_4bh3l")
+
+[node name="EntityRayCast" type="RayCast2D" parent="EntityDetectorModule" unique_id=567755736]
+unique_name_in_owner = true
+target_position = Vector2(0, 0)
+collision_mask = 9
+
+[node name="StateMachine" type="Node" parent="." unique_id=2101140959 node_paths=PackedStringArray("initial_state")]
+unique_name_in_owner = true
+script = ExtResource("6_ulnfe")
+initial_state = NodePath("EnemyIdle")
+
+[node name="EnemyIdle" type="Node" parent="StateMachine" unique_id=1974331767 node_paths=PackedStringArray("enemy")]
+script = ExtResource("7_4bh3l")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://0qk5bd8q5o38"
+
+[node name="EnemyFollow" type="Node" parent="StateMachine" unique_id=1532420482 node_paths=PackedStringArray("enemy")]
+script = ExtResource("8_e3jus")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://dhignevql32fx"
+
+[node name="EnemySearching" type="Node" parent="StateMachine" unique_id=1935690689 node_paths=PackedStringArray("enemy")]
+script = ExtResource("9_5an88")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://cxb43fcddtoxq"
+
+[node name="EnemyAttack" type="Node" parent="StateMachine" unique_id=616867560 node_paths=PackedStringArray("enemy")]
+script = ExtResource("10_yynbb")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://ci3jqvc4qqapn"
+
+[node name="AttackCooldownTimer" type="Timer" parent="." unique_id=1466041211]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1548183246]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_iqic2")
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="body_entered" from="EntityDetectorModule/EntityDetectorArea" to="EntityDetectorModule" method="_on_entity_detector_area_body_entered"]
+[connection signal="body_exited" from="EntityDetectorModule/EntityDetectorArea" to="EntityDetectorModule" method="_on_entity_detector_area_body_exited"]
+[connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

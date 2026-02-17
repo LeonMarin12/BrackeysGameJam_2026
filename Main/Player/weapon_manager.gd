@@ -39,6 +39,6 @@ func shoot():
 func apply_recoil():
 	var player = get_parent()
 	if player.is_in_group('player'):
-		if player.has_method('take_recoil'):
+		if player.has_method('take_impulse'):
 			var direction = -1 * mouse_direction.normalized()
-			player.take_recoil(recoil_force, direction)
+			player.take_impulse(recoil_force, direction)
