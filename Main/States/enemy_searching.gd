@@ -2,6 +2,7 @@ extends State
 class_name EnemySearching
 
 @export var enemy :CharacterBody2D
+@export var animation_player :AnimationPlayer
 
 var player :CharacterBody2D
 var position_to_search :Vector2
@@ -15,6 +16,8 @@ func Physics_Update(delta :float):
 	var direction = position_to_search - enemy.global_position
 	if direction.length() > 10:
 		enemy.move_to_direction(direction.normalized())
+		if animation_player.has_animation('walk'):
+				animation_player.play('walk')
 	else:
 		Transitioned.emit(self, 'EnemyIdle')
 

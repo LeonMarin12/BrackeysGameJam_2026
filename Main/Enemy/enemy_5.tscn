@@ -1,0 +1,227 @@
+[gd_scene format=3 uid="uid://jdfyk616k3cl"]
+
+[ext_resource type="Script" uid="uid://colt8hkkmf0pt" path="res://Main/Enemy/enemy.gd" id="1_6tehm"]
+[ext_resource type="PackedScene" uid="uid://88npcoe0nnkb" path="res://Main/Drop/drop.tscn" id="2_wd2px"]
+[ext_resource type="Texture2D" uid="uid://tbfekqp2ppsm" path="res://Assets/ExternalAssets/Enemies/enemy_5 - Spritesheet.png" id="3_6tehm"]
+[ext_resource type="Script" uid="uid://b6dpk5xld7ke6" path="res://Main/Enemy/entity_detector_module.gd" id="4_g4h0a"]
+[ext_resource type="Script" uid="uid://chiwbvwfhq1x8" path="res://Main/States/state_machine.gd" id="5_myotq"]
+[ext_resource type="Script" uid="uid://0qk5bd8q5o38" path="res://Main/States/enemy_idle.gd" id="6_kumwl"]
+[ext_resource type="Script" uid="uid://dhignevql32fx" path="res://Main/States/enemy_follow.gd" id="7_inlor"]
+[ext_resource type="Script" uid="uid://cxb43fcddtoxq" path="res://Main/States/enemy_searching.gd" id="8_llbpf"]
+[ext_resource type="Script" uid="uid://ci3jqvc4qqapn" path="res://Main/States/enemy_attack.gd" id="9_d5ln1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ulnfe"]
+radius = 12.0415945
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4bo1o"]
+radius = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4bh3l"]
+radius = 100.02
+
+[sub_resource type="Animation" id="Animation_mb6jb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtBox:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_3kqtw"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtBox:monitoring")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.43333334, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33333334, 0.43333334, 1),
+"transitions": PackedFloat32Array(1, 1, 0.27739242, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.958, 1.2), Vector2(1.5, 0.7), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.3, 0.4, 0.73333335),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 9, 10, 11, 0]
+}
+
+[sub_resource type="Animation" id="Animation_yynbb"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.06666667, 0.3, 0.46666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_5gxkj"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.33333334, 0.53333336, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iqic2"]
+_data = {
+&"RESET": SubResource("Animation_mb6jb"),
+&"attack": SubResource("Animation_3kqtw"),
+&"idle": SubResource("Animation_yynbb"),
+&"walk": SubResource("Animation_5gxkj")
+}
+
+[node name="Enemy_5" type="CharacterBody2D" unique_id=1800310344 groups=["enemies"]]
+collision_layer = 2
+collision_mask = 27
+script = ExtResource("1_6tehm")
+loot_scene = ExtResource("2_wd2px")
+life = 180.0
+move_speed = 25.0
+distance_to_attack = 30.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1321778770]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_ulnfe")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=437354334]
+position = Vector2(0, -11)
+texture = ExtResource("3_6tehm")
+hframes = 9
+vframes = 2
+frame = 1
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=263416762]
+visible = false
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" unique_id=1001427524]
+shape = SubResource("CircleShape2D_4bo1o")
+
+[node name="EntityDetectorModule" type="Node2D" parent="." unique_id=609225677]
+unique_name_in_owner = true
+visible = false
+script = ExtResource("4_g4h0a")
+
+[node name="EntityDetectorArea" type="Area2D" parent="EntityDetectorModule" unique_id=714284935]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityDetectorModule/EntityDetectorArea" unique_id=500079495]
+shape = SubResource("CircleShape2D_4bh3l")
+
+[node name="EntityRayCast" type="RayCast2D" parent="EntityDetectorModule" unique_id=567755736]
+unique_name_in_owner = true
+target_position = Vector2(0, 0)
+collision_mask = 9
+
+[node name="StateMachine" type="Node" parent="." unique_id=2101140959 node_paths=PackedStringArray("initial_state")]
+unique_name_in_owner = true
+script = ExtResource("5_myotq")
+initial_state = NodePath("EnemyIdle")
+
+[node name="EnemyIdle" type="Node" parent="StateMachine" unique_id=1974331767 node_paths=PackedStringArray("enemy", "animation_player")]
+script = ExtResource("6_kumwl")
+enemy = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+metadata/_custom_type_script = "uid://0qk5bd8q5o38"
+
+[node name="EnemyFollow" type="Node" parent="StateMachine" unique_id=1532420482 node_paths=PackedStringArray("enemy", "animation_player")]
+script = ExtResource("7_inlor")
+enemy = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+metadata/_custom_type_script = "uid://dhignevql32fx"
+
+[node name="EnemySearching" type="Node" parent="StateMachine" unique_id=1935690689 node_paths=PackedStringArray("enemy", "animation_player")]
+script = ExtResource("8_llbpf")
+enemy = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+metadata/_custom_type_script = "uid://cxb43fcddtoxq"
+
+[node name="EnemyAttack" type="Node" parent="StateMachine" unique_id=616867560 node_paths=PackedStringArray("enemy", "animation_player")]
+script = ExtResource("9_d5ln1")
+enemy = NodePath("../..")
+animation_player = NodePath("../../AnimationPlayer")
+metadata/_custom_type_script = "uid://ci3jqvc4qqapn"
+
+[node name="AttackCooldownTimer" type="Timer" parent="." unique_id=1466041211]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1548183246]
+libraries/ = SubResource("AnimationLibrary_iqic2")
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="body_entered" from="EntityDetectorModule/EntityDetectorArea" to="EntityDetectorModule" method="_on_entity_detector_area_body_entered"]
+[connection signal="body_exited" from="EntityDetectorModule/EntityDetectorArea" to="EntityDetectorModule" method="_on_entity_detector_area_body_exited"]
+[connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

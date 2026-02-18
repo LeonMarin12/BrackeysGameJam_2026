@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-@export var speed: float = 200.0
-@export var acceleration: float = 20.0
+@export var speed: float = 150.0
+@export var acceleration: float = 10.0
 @export var max_health: float = 100.0
 @export var max_sanity: float = 100.0
 
@@ -27,6 +27,7 @@ func take_impulse(impulse_force, direction):
 func take_damage(damage):
 	print('auch: ', damage)
 	health -= damage
+	GlobalEvents.shake_camera.emit(0.35, 0.8)
 	if health <= 0.0:
 		die()
 

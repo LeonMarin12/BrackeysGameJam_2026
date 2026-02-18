@@ -1,24 +1,23 @@
 extends CharacterBody2D
 
-@onready var animated_sprite = %AnimatedSprite2D
 @onready var entity_detector = %EntityDetectorModule
 @onready var state_machine = %StateMachine
-@onready var animation_player = %AnimationPlayer
 @onready var attack_cooldown_timer = %AttackCooldownTimer
 
+@export_category('Scenes')
 @export var loot_scene :PackedScene
 
-var life :float = 3
-var move_speed :float = 40
-var distance_to_attack := 20
-var attack_damage := 10
-var attack_cooldown :float = 1.0
-var attack_push_force := 100
+@export_category('Statistics')
+@export var life :float = 90.0
+@export var move_speed :float = 50.0
+@export var distance_to_attack :float = 20.0
+@export var attack_damage := 10.0
+@export var attack_cooldown :float = 1.0
+@export var attack_push_force :float = 10.0
 
 var can_attack := true
 
 func _ready():
-	animated_sprite.play('idle')
 	
 	# Conectar señales del detector de entidades
 	entity_detector.player_detected_with_los.connect(_on_player_detected_with_los)
@@ -35,7 +34,6 @@ func move_to_direction(move_direction):
 
 func attack():
 	if can_attack:
-		animation_player.play('attack')
 		attack_cooldown_timer.start(attack_cooldown)
 		can_attack = false
 
@@ -77,3 +75,6 @@ func _on_player_hid_behind_wall():
 func _on_hurt_box_body_entered(body):
 	if body.is_in_group('player'):
 		body.take_damage(attack_damage)
+		var player = get_tree().get_first_node_in_group('player')
+		var direction = player.global_position - global_position
+		body.take_impulse(attack_push_force, direction)

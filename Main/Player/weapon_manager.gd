@@ -7,8 +7,8 @@ extends Node2D
 @export_category('Trigger Settings')
 @export_range(0, 1) var shake_camera_force :float = 0.2
 @export var shake_camera_decay :float = 0.8
-@export var flash_duration :float = 0.2
-@export var recoil_force :float = 500
+@export var flash_duration :float = 0.25
+@export var recoil_force :float = 300
 
 var mouse_direction :Vector2
 
