@@ -41,6 +41,7 @@ func shoot():
 	instantiate_casing()
 	apply_recoil()
 	
+	weapon_animation_player.stop()
 	weapon_animation_player.play('shoot')
 	
 	GlobalEvents.shake_camera.emit(shake_camera_force, shake_camera_decay)
@@ -75,4 +76,6 @@ func apply_recoil():
 func _on_hurt_box_body_entered(body):
 	if body.has_method('take_damage'):
 		body.take_damage(melee_damage)
-		body.velocity = melee_push_force * mouse_direction.normalized()
+		body.velocity += melee_push_force * mouse_direction.normalized()
+		
+		GlobalEvents.shake_camera.emit(shake_camera_force, shake_camera_decay)

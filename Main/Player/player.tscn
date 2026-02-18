@@ -15,7 +15,7 @@ radius = 6.0
 height = 20.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_y2cg6"]
-radius = 15.0
+radius = 16.0
 
 [sub_resource type="Animation" id="Animation_mh6t3"]
 length = 0.001
@@ -131,7 +131,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=787664822 groups=["player"]]
-collision_mask = 14
+collision_mask = 12
 script = ExtResource("1_q3lat")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1161055138]
@@ -170,7 +170,7 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponManager/HurtBox" unique_id=910822442]
-position = Vector2(10, 0)
+position = Vector2(8, 1)
 shape = SubResource("CircleShape2D_y2cg6")
 
 [node name="WeaponAnimationPlayer" type="AnimationPlayer" parent="WeaponManager" unique_id=620826221]

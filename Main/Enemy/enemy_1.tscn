@@ -141,7 +141,7 @@ _data = {
 
 [node name="Enemy_1" type="CharacterBody2D" unique_id=1800310344 groups=["enemies"]]
 collision_layer = 2
-collision_mask = 27
+collision_mask = 26
 script = ExtResource("1_jskd6")
 loot_scene = ExtResource("2_1ftki")
 
@@ -213,6 +213,10 @@ metadata/_custom_type_script = "uid://ci3jqvc4qqapn"
 unique_name_in_owner = true
 one_shot = true
 
+[node name="MoveCooldownTimer" type="Timer" parent="." unique_id=1859206871]
+unique_name_in_owner = true
+one_shot = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1548183246]
 libraries/ = SubResource("AnimationLibrary_iqic2")
 
@@ -220,4 +224,5 @@ libraries/ = SubResource("AnimationLibrary_iqic2")
 [connection signal="body_entered" from="EntityDetectorModule/EntityDetectorArea" to="EntityDetectorModule" method="_on_entity_detector_area_body_entered"]
 [connection signal="body_exited" from="EntityDetectorModule/EntityDetectorArea" to="EntityDetectorModule" method="_on_entity_detector_area_body_exited"]
 [connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
+[connection signal="timeout" from="MoveCooldownTimer" to="." method="_on_move_cooldown_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

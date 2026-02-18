@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var entity_detector = %EntityDetectorModule
 @onready var state_machine = %StateMachine
 @onready var attack_cooldown_timer = %AttackCooldownTimer
+@onready var move_cooldown_timer = %MoveCooldownTimer
 
 @export_category('Scenes')
 @export var loot_scene :PackedScene
@@ -16,6 +17,7 @@ extends CharacterBody2D
 @export var attack_push_force :float = 10.0
 
 var can_attack := true
+var can_move := true
 
 func _ready():
 	
@@ -29,7 +31,8 @@ func _physics_process(delta):
 
 
 func move_to_direction(move_direction):
-	velocity = move_direction * move_speed
+	if can_move:
+		velocity = move_direction * move_speed
 
 
 func attack():
@@ -42,6 +45,9 @@ func take_damage(damage :float = 1.0):
 	life -= damage
 	if life <= 0:
 		die()
+	
+	can_move = false
+	move_cooldown_timer.start(0.5)
 
 
 func drop_loot():
@@ -78,3 +84,7 @@ func _on_hurt_box_body_entered(body):
 		var player = get_tree().get_first_node_in_group('player')
 		var direction = player.global_position - global_position
 		body.take_impulse(attack_push_force, direction)
+
+
+func _on_move_cooldown_timer_timeout():
+	can_move = true
