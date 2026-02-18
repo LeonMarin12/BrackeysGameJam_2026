@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c2uh2cxsvarnd" path="res://Assets/Player/Casing_placeholder.png" id="2_dg4pp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_818eq"]
-radius = 2.828427
+radius = 2.0
 
 [node name="Casing" type="Node2D" unique_id=744884311]
 script = ExtResource("1_vjj64")

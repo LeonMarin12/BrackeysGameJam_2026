@@ -21,11 +21,13 @@ GlobalEvents="*uid://qjfojn4i3ktw"
 
 [display]
 
-window/size/viewport_width=576
-window/size/viewport_height=324
+window/size/viewport_width=480
+window/size/viewport_height=260
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="viewport"
+mouse_cursor/custom_image="uid://c522cabkvwkv5"
+mouse_cursor/custom_image_hotspot=Vector2(32, 32)
 
 [input]
 
@@ -52,6 +54,11 @@ move_right={
 shoot={
 "deadzone": 0.2,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(690, 14),"global_position":Vector2(709, 110),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
+hit={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(576, 32),"global_position":Vector2(595, 128),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
 

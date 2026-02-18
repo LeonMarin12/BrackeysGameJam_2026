@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var marker = %Marker2D
+@onready var weapon_animation_player = %WeaponAnimationPlayer
 
 @export_category('Scenes')
 @export var bullet_scene :PackedScene
@@ -11,6 +12,8 @@ extends Node2D
 @export var shake_camera_decay :float = 0.8
 @export var flash_duration :float = 0.25
 @export var recoil_force :float = 200
+@export var melee_damage :float = 10.0
+@export var melee_push_force :float = 100.0
 
 var mouse_direction :Vector2
 
@@ -24,12 +27,21 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
+	
+	elif Input.is_action_just_pressed("hit"):
+		hit()
+
+
+func hit():
+	weapon_animation_player.play('hit')
 
 
 func shoot():
 	instantiate_bullet()
 	instantiate_casing()
 	apply_recoil()
+	
+	weapon_animation_player.play('shoot')
 	
 	GlobalEvents.shake_camera.emit(shake_camera_force, shake_camera_decay)
 	GlobalEvents.flash_camera.emit(flash_duration)
@@ -58,3 +70,9 @@ func apply_recoil():
 		if player.has_method('take_impulse'):
 			var direction = -1 * mouse_direction.normalized()
 			player.take_impulse(recoil_force, direction)
+
+
+func _on_hurt_box_body_entered(body):
+	if body.has_method('take_damage'):
+		body.take_damage(melee_damage)
+		body.velocity = melee_push_force * mouse_direction.normalized()
