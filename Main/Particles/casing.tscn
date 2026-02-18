@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dw1vnnmq21muc"]
+
+[ext_resource type="Script" uid="uid://c66jnuxkf062e" path="res://Main/Particles/bouncing_particle.gd" id="1_vjj64"]
+[ext_resource type="Texture2D" uid="uid://c2uh2cxsvarnd" path="res://Assets/Player/Casing_placeholder.png" id="2_dg4pp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_818eq"]
+radius = 2.828427
+
+[node name="Casing" type="Node2D" unique_id=744884311]
+script = ExtResource("1_vjj64")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1334616441]
+texture = ExtResource("2_dg4pp")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1441499155]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2037251052]
+shape = SubResource("CircleShape2D_818eq")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=750211067]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

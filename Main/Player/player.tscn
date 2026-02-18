@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://0pirmdu8kxm0" path="res://Main/Player/weapon_manager.gd" id="5_6ysni"]
 [ext_resource type="PackedScene" uid="uid://cdo4ddlvqtia2" path="res://Main/Player/Bullet/bullet.tscn" id="6_s1rgi"]
 [ext_resource type="Texture2D" uid="uid://clvu4aujk2nvb" path="res://Assets/Player/weapon_minirevolver.png" id="6_vlldt"]
+[ext_resource type="PackedScene" uid="uid://dw1vnnmq21muc" path="res://Main/Particles/casing.tscn" id="8_y2cg6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qn1bl"]
 radius = 6.0
@@ -47,6 +48,7 @@ texture_scale = 0.3
 [node name="WeaponManager" type="Node2D" parent="." unique_id=2089479805]
 script = ExtResource("5_6ysni")
 bullet_scene = ExtResource("6_s1rgi")
+casing_scene = ExtResource("8_y2cg6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="WeaponManager" unique_id=1211738706]
 position = Vector2(7, 1)

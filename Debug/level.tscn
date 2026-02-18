@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c23n1ijj64c76" path="res://Main/Ambient/dark_manager.tscn" id="7_eq2nm"]
 [ext_resource type="Texture2D" uid="uid://qxgegd1cubn2" path="res://Assets/ExternalAssets/0x72_DungeonTilesetII_v1.7/frames/doors_leaf_closed.png" id="7_woqe0"]
 [ext_resource type="PackedScene" uid="uid://jdfyk616k3cl" path="res://Main/Enemy/enemy_5.tscn" id="9_3c1b4"]
+[ext_resource type="PackedScene" uid="uid://dw1vnnmq21muc" path="res://Main/Particles/casing.tscn" id="9_v81rb"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_up3c0"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -197,5 +198,8 @@ position = Vector2(122, 218)
 
 [node name="Drop4" parent="Drops" unique_id=1657029099 instance=ExtResource("6_up3c0")]
 position = Vector2(123, 265)
+
+[node name="Casing" parent="." unique_id=744884311 instance=ExtResource("9_v81rb")]
+position = Vector2(342, 266)
 
 [node name="DarkManager" parent="." unique_id=902873304 instance=ExtResource("7_eq2nm")]
