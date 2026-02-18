@@ -1,6 +1,0 @@
-[gd_resource type="AtlasTexture" format=3 uid="uid://dbwmbaggidfib"]
-
-[ext_resource type="Texture2D" uid="uid://b8faanj34mjhf" path="res://Assets/ExternalAssets/FREE Textures Of Light Alpha/FREE Textures Of Light Alpha/512x512/animation/2.png" id="1_rg52y"]
-
-[resource]
-atlas = ExtResource("1_rg52y")
