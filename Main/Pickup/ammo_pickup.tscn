@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://lpw5ievpnv2n"]
+
+[ext_resource type="Script" uid="uid://um403ni57c77" path="res://Main/Pickup/pickup.gd" id="1_ayksx"]
+[ext_resource type="Texture2D" uid="uid://b5i6qm4mqpmdv" path="res://Assets/Pickup/ammo_item.png" id="2_ayksx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3u5bt"]
+size = Vector2(14, 10)
+
+[node name="AmmoPickup" type="RigidBody2D" unique_id=420215204]
+collision_layer = 4
+collision_mask = 12
+gravity_scale = 0.0
+linear_damp = 2.5
+angular_damp = 3.0
+script = ExtResource("1_ayksx")
+pickup_name = "ammo"
+value = 6
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1182484378]
+texture = ExtResource("2_ayksx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=119508120]
+shape = SubResource("RectangleShape2D_3u5bt")

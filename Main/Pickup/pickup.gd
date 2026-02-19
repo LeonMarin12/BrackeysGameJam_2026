@@ -2,7 +2,7 @@ extends RigidBody2D
 class_name Pickup
 
 @export_enum("healing", "sanity", "ammo") var pickup_name: String
-
+@export var value :int = 10
 
 func take_impulse(push_force, direction):
 	apply_impulse(push_force * direction)

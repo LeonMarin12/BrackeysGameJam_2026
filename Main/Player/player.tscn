@@ -184,6 +184,7 @@ script = ExtResource("3_ddoul")
 texture = ExtResource("5_y2cg6")
 
 [node name="WeaponManager" type="Node2D" parent="." unique_id=2089479805]
+unique_name_in_owner = true
 script = ExtResource("5_6ysni")
 bullet_scene = ExtResource("6_s1rgi")
 casing_scene = ExtResource("8_y2cg6")

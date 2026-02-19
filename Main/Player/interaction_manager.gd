@@ -11,17 +11,17 @@ var previous_selected_body = null
 func _process(_delta):
 	if Input.is_action_just_pressed('interact'):
 		if selected_body is Pickup:
-			_pick_item(selected_body.pickup_name)
+			_pick_item(selected_body.pickup_name, selected_body.value)
 
 
-func _pick_item(pickup_name):
+func _pick_item(pickup_name, value):
 	match pickup_name:
 		'healing':
-			pass
+			if !player.restore_health(value): return
 		'sanity':
-			pass
+			if !player.restore_sanity(value): return
 		'ammo':
-			pass
+			if !player.restore_ammo(value): return
 	selected_body.disappear()
 
 

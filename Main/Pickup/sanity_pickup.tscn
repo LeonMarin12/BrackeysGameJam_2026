@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bvekxbywtmre6"]
+
+[ext_resource type="Script" uid="uid://um403ni57c77" path="res://Main/Pickup/pickup.gd" id="1_7co34"]
+[ext_resource type="Texture2D" uid="uid://cmnyjxij8vjvb" path="res://Assets/Pickup/sanity_item.png" id="2_7co34"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l4h7g"]
+size = Vector2(12, 15)
+
+[node name="SanityPickup" type="RigidBody2D" unique_id=420215204]
+collision_layer = 4
+collision_mask = 12
+gravity_scale = 0.0
+linear_damp = 2.5
+angular_damp = 3.0
+script = ExtResource("1_7co34")
+pickup_name = "sanity"
+value = 25
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1182484378]
+texture = ExtResource("2_7co34")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=119508120]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_l4h7g")

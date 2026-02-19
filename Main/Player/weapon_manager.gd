@@ -23,7 +23,8 @@ extends Node2D
 
 var interrupt_reload :bool = false
 var mouse_direction :Vector2
-var bullets_left = weapon_magazines * bullets_per_magazine
+var max_bullets = weapon_magazines * bullets_per_magazine
+var bullets_left = max_bullets
 var bullets_in_magazine = bullets_per_magazine
 
 
