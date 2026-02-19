@@ -11,11 +11,20 @@ extends Node2D
 @export_range(0, 1) var shake_camera_force :float = 0.2
 @export var shake_camera_decay :float = 0.8
 @export var flash_duration :float = 0.25
+
+@export_category('Stats')
+@export var damage :float
 @export var recoil_force :float = 200
 @export var melee_damage :float = 10.0
 @export var melee_push_force :float = 100.0
 
+@export var weapon_magazines: int = 3
+@export var bullets_per_magazine :int = 6
+
+var can_shoot :bool = true
 var mouse_direction :Vector2
+var bullets_left = weapon_magazines * bullets_per_magazine
+var bullets_in_magazine = bullets_per_magazine
 
 
 func _process(delta):
@@ -26,17 +35,39 @@ func _process(delta):
 	else: scale.y = 1
 	
 	if Input.is_action_just_pressed("shoot"):
-		shoot()
+		if can_shoot:
+			if bullets_in_magazine > 0:
+				shoot()
+			else:
+				pass #sonido sin balas
 	
 	elif Input.is_action_just_pressed("hit"):
 		hit()
+	
+	elif Input.is_action_just_pressed("reload"):
+		reload()
 
 
 func hit():
 	weapon_animation_player.play('hit')
 
 
+func reload():
+	can_shoot = false
+	
+	for i in bullets_per_magazine:
+		if bullets_left > 0 and bullets_in_magazine < bullets_per_magazine:
+			weapon_animation_player.play("reload")
+			bullets_in_magazine += 1
+			bullets_left -= 1
+			await get_tree().create_timer(0.6).timeout
+	
+	can_shoot = true
+
+
 func shoot():
+	bullets_in_magazine -= 1
+	
 	instantiate_bullet()
 	instantiate_casing()
 	apply_recoil()
