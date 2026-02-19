@@ -30,7 +30,6 @@ func _physics_process(_delta):
 					# Tenía línea de visión y ahora se escondió
 					has_line_of_sight = false
 					player_hid_behind_wall.emit()
-					print('Player se escondió detrás de una pared')
 				else:
 					# No tenía línea de visión, sigue sin tenerla
 					has_line_of_sight = false

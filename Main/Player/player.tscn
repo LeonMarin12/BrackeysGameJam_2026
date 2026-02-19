@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cdo4ddlvqtia2" path="res://Main/Player/Bullet/bullet.tscn" id="6_s1rgi"]
 [ext_resource type="PackedScene" uid="uid://dw1vnnmq21muc" path="res://Main/Particles/casing.tscn" id="8_y2cg6"]
 [ext_resource type="Texture2D" uid="uid://woxbxqga6gf0" path="res://Assets/Player/minirevolver_spritesheet.png" id="9_y2cg6"]
+[ext_resource type="Script" uid="uid://dodnja7e14myb" path="res://Main/Player/interaction_manager.gd" id="10_mh6t3"]
+[ext_resource type="Shader" uid="uid://tn0du8ohh733" path="res://Resources/outline.gdshader" id="11_v6150"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qn1bl"]
 radius = 6.0
@@ -106,6 +108,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [false, true, false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_y2cg6"]
 resource_name = "reload"
@@ -147,8 +161,11 @@ _data = {
 &"shoot": SubResource("Animation_0xdcc")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_v6150"]
+radius = 13.0
+
 [node name="Player" type="CharacterBody2D" unique_id=787664822 groups=["player"]]
-collision_mask = 12
+collision_mask = 8
 script = ExtResource("1_q3lat")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1161055138]
@@ -160,10 +177,10 @@ texture = ExtResource("2_tok1r")
 [node name="CameraManager" type="Camera2D" parent="." unique_id=1949400709]
 script = ExtResource("3_s1rgi")
 
-[node name="LightManager" type="Node2D" parent="." unique_id=1086953237]
+[node name="SanityManager" type="Node2D" parent="." unique_id=1086953237]
 script = ExtResource("3_ddoul")
 
-[node name="PointLight2D" type="PointLight2D" parent="LightManager" unique_id=948513229]
+[node name="PointLight2D" type="PointLight2D" parent="SanityManager" unique_id=948513229]
 texture = ExtResource("5_y2cg6")
 
 [node name="WeaponManager" type="Node2D" parent="." unique_id=2089479805]
@@ -182,7 +199,7 @@ position = Vector2(13, -1)
 
 [node name="HurtBox" type="Area2D" parent="WeaponManager" unique_id=1366903363]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 monitoring = false
 monitorable = false
 
@@ -194,4 +211,18 @@ shape = SubResource("CircleShape2D_y2cg6")
 unique_name_in_owner = true
 libraries/ = SubResource("AnimationLibrary_tjvpk")
 
+[node name="InteractionManager" type="Node2D" parent="." unique_id=134943755 node_paths=PackedStringArray("player")]
+script = ExtResource("10_mh6t3")
+player = NodePath("..")
+outline_shader = ExtResource("11_v6150")
+
+[node name="InteractionArea2D" type="Area2D" parent="InteractionManager" unique_id=1348665289]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionManager/InteractionArea2D" unique_id=1427265059]
+shape = SubResource("CircleShape2D_v6150")
+
 [connection signal="body_entered" from="WeaponManager/HurtBox" to="WeaponManager" method="_on_hurt_box_body_entered"]
+[connection signal="body_entered" from="InteractionManager/InteractionArea2D" to="InteractionManager" method="_on_interaction_area_2d_body_entered"]
+[connection signal="body_exited" from="InteractionManager/InteractionArea2D" to="InteractionManager" method="_on_interaction_area_2d_body_exited"]

@@ -25,9 +25,9 @@ func take_impulse(impulse_force, direction):
 
 
 func take_damage(damage):
-	print('auch: ', damage)
 	health -= damage
 	GlobalEvents.shake_camera.emit(0.35, 0.8)
+	DamageNumbers.display_number(damage, global_position)
 	if health <= 0.0:
 		die()
 

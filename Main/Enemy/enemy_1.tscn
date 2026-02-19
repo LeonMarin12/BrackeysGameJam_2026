@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cgafamafmks6e"]
 
 [ext_resource type="Script" uid="uid://colt8hkkmf0pt" path="res://Main/Enemy/enemy.gd" id="1_jskd6"]
-[ext_resource type="PackedScene" uid="uid://88npcoe0nnkb" path="res://Main/Drop/drop.tscn" id="2_1ftki"]
+[ext_resource type="PackedScene" uid="uid://88npcoe0nnkb" path="res://Main/Pickup/healing_pickup.tscn" id="2_1ftki"]
 [ext_resource type="Texture2D" uid="uid://c3x3tsctq2u7l" path="res://Assets/ExternalAssets/Enemies/enemy_1 - Spritesheet.png" id="3_5an88"]
 [ext_resource type="Script" uid="uid://b6dpk5xld7ke6" path="res://Main/Enemy/entity_detector_module.gd" id="5_1ftki"]
 [ext_resource type="Script" uid="uid://chiwbvwfhq1x8" path="res://Main/States/state_machine.gd" id="6_ulnfe"]
@@ -213,10 +213,6 @@ metadata/_custom_type_script = "uid://ci3jqvc4qqapn"
 unique_name_in_owner = true
 one_shot = true
 
-[node name="MoveCooldownTimer" type="Timer" parent="." unique_id=1859206871]
-unique_name_in_owner = true
-one_shot = true
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1548183246]
 libraries/ = SubResource("AnimationLibrary_iqic2")
 
@@ -224,5 +220,4 @@ libraries/ = SubResource("AnimationLibrary_iqic2")
 [connection signal="body_entered" from="EntityDetectorModule/EntityDetectorArea" to="EntityDetectorModule" method="_on_entity_detector_area_body_entered"]
 [connection signal="body_exited" from="EntityDetectorModule/EntityDetectorArea" to="EntityDetectorModule" method="_on_entity_detector_area_body_exited"]
 [connection signal="timeout" from="AttackCooldownTimer" to="." method="_on_attack_cooldown_timer_timeout"]
-[connection signal="timeout" from="MoveCooldownTimer" to="." method="_on_move_cooldown_timer_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

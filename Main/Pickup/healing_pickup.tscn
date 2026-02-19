@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://88npcoe0nnkb"]
+
+[ext_resource type="Texture2D" uid="uid://diln3fvs84ybj" path="res://Assets/Pickup/healing_item.png" id="1_hhghu"]
+[ext_resource type="Script" uid="uid://um403ni57c77" path="res://Main/Pickup/pickup.gd" id="2_xotts"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2sulb"]
+radius = 9.0
+
+[node name="HealingPickup" type="RigidBody2D" unique_id=420215204]
+collision_layer = 4
+collision_mask = 8
+gravity_scale = 0.0
+linear_damp = 2.5
+angular_damp = 3.0
+script = ExtResource("2_xotts")
+pickup_name = "healing"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1182484378]
+texture = ExtResource("1_hhghu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=119508120]
+shape = SubResource("CircleShape2D_2sulb")

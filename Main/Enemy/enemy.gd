@@ -3,7 +3,6 @@ extends CharacterBody2D
 @onready var entity_detector = %EntityDetectorModule
 @onready var state_machine = %StateMachine
 @onready var attack_cooldown_timer = %AttackCooldownTimer
-@onready var move_cooldown_timer = %MoveCooldownTimer
 
 @export_category('Scenes')
 @export var loot_scene :PackedScene
@@ -15,9 +14,12 @@ extends CharacterBody2D
 @export var attack_damage := 10.0
 @export var attack_cooldown :float = 1.0
 @export var attack_push_force :float = 10.0
+@export_range(0, 1) var push_resistence :float = 0.3
+
 
 var can_attack := true
-var can_move := true
+var is_being_pushed := false
+
 
 func _ready():
 	
@@ -27,11 +29,19 @@ func _ready():
 
 
 func _physics_process(delta):
+	# Aplicar fricción al impulso
+	if is_being_pushed:
+		velocity = velocity.lerp(Vector2.ZERO, push_resistence)
+		# Detener el empuje cuando la velocidad es muy baja
+		if velocity.length() < 5:
+			velocity = Vector2.ZERO
+			is_being_pushed = false
+	
 	move_and_slide()
 
 
 func move_to_direction(move_direction):
-	if can_move:
+	if not is_being_pushed:
 		velocity = move_direction * move_speed
 
 
@@ -43,11 +53,15 @@ func attack():
 
 func take_damage(damage :float = 1.0):
 	life -= damage
+	DamageNumbers.display_number(damage, global_position)
+	
 	if life <= 0:
 		die()
-	
-	can_move = false
-	move_cooldown_timer.start(0.5)
+
+
+func take_impulse(push_force, direction):
+	velocity = push_force * direction * (1 - push_resistence) * 10
+	is_being_pushed = true
 
 
 func drop_loot():
@@ -84,7 +98,3 @@ func _on_hurt_box_body_entered(body):
 		var player = get_tree().get_first_node_in_group('player')
 		var direction = player.global_position - global_position
 		body.take_impulse(attack_push_force, direction)
-
-
-func _on_move_cooldown_timer_timeout():
-	can_move = true

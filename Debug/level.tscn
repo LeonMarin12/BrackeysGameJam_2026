@@ -5,11 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://daeykmc6yagfa" path="res://Assets/ExternalAssets/0x72_DungeonTilesetII_v1.7/atlas_floor-16x16.png" id="2_eq2nm"]
 [ext_resource type="PackedScene" uid="uid://cgafamafmks6e" path="res://Main/Enemy/enemy_1.tscn" id="5_rjnww"]
 [ext_resource type="PackedScene" uid="uid://xco71p6njifj" path="res://Main/Enemy/enemy_4.tscn" id="6_msoi8"]
-[ext_resource type="PackedScene" uid="uid://88npcoe0nnkb" path="res://Main/Drop/drop.tscn" id="6_up3c0"]
+[ext_resource type="PackedScene" uid="uid://88npcoe0nnkb" path="res://Main/Pickup/healing_pickup.tscn" id="6_up3c0"]
 [ext_resource type="PackedScene" uid="uid://c23n1ijj64c76" path="res://Main/Ambient/dark_manager.tscn" id="7_eq2nm"]
 [ext_resource type="Texture2D" uid="uid://qxgegd1cubn2" path="res://Assets/ExternalAssets/0x72_DungeonTilesetII_v1.7/frames/doors_leaf_closed.png" id="7_woqe0"]
 [ext_resource type="PackedScene" uid="uid://jdfyk616k3cl" path="res://Main/Enemy/enemy_5.tscn" id="9_3c1b4"]
 [ext_resource type="PackedScene" uid="uid://dw1vnnmq21muc" path="res://Main/Particles/casing.tscn" id="9_v81rb"]
+[ext_resource type="Shader" uid="uid://tn0du8ohh733" path="res://Resources/outline.gdshader" id="9_woqe0"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_up3c0"]
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -160,6 +161,11 @@ physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_i0gb6")
 sources/1 = SubResource("TileSetAtlasSource_afqey")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_afqey"]
+shader = ExtResource("9_woqe0")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0000000475
+
 [node name="DebugLevel" type="Node2D" unique_id=1018732396]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1927653137]
@@ -188,7 +194,8 @@ position = Vector2(331, 135)
 [node name="Drops" type="Node2D" parent="." unique_id=1301555077]
 
 [node name="Drop" parent="Drops" unique_id=779324081 instance=ExtResource("6_up3c0")]
-position = Vector2(119, 95)
+material = SubResource("ShaderMaterial_afqey")
+position = Vector2(274, 220)
 
 [node name="Drop2" parent="Drops" unique_id=446454965 instance=ExtResource("6_up3c0")]
 position = Vector2(121, 163)

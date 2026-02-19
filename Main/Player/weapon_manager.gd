@@ -21,7 +21,7 @@ extends Node2D
 @export var weapon_magazines: int = 3
 @export var bullets_per_magazine :int = 6
 
-var can_shoot :bool = true
+var interrupt_reload :bool = false
 var mouse_direction :Vector2
 var bullets_left = weapon_magazines * bullets_per_magazine
 var bullets_in_magazine = bullets_per_magazine
@@ -35,34 +35,36 @@ func _process(delta):
 	else: scale.y = 1
 	
 	if Input.is_action_just_pressed("shoot"):
-		if can_shoot:
-			if bullets_in_magazine > 0:
-				shoot()
-			else:
-				pass #sonido sin balas
+		interrupt_reload = true
+		if bullets_in_magazine > 0:
+			shoot()
+		else:
+			print('no quedan balas en el magazine para disparar')
 	
 	elif Input.is_action_just_pressed("hit"):
+		interrupt_reload = true
 		hit()
 	
 	elif Input.is_action_just_pressed("reload"):
+		interrupt_reload = false
 		reload()
 
 
 func hit():
+	weapon_animation_player.stop()
 	weapon_animation_player.play('hit')
 
 
 func reload():
-	can_shoot = false
-	
 	for i in bullets_per_magazine:
 		if bullets_left > 0 and bullets_in_magazine < bullets_per_magazine:
+			if interrupt_reload:
+				break
 			weapon_animation_player.play("reload")
+			await get_tree().create_timer(0.6).timeout
+			#sonido de bala cargada
 			bullets_in_magazine += 1
 			bullets_left -= 1
-			await get_tree().create_timer(0.6).timeout
-	
-	can_shoot = true
 
 
 func shoot():
@@ -107,6 +109,8 @@ func apply_recoil():
 func _on_hurt_box_body_entered(body):
 	if body.has_method('take_damage'):
 		body.take_damage(melee_damage)
-		body.velocity += melee_push_force * mouse_direction.normalized()
-		
+		#body.velocity += melee_push_force * mouse_direction.normalized()
 		GlobalEvents.shake_camera.emit(shake_camera_force, shake_camera_decay)
+	
+	if body.has_method('take_impulse'):
+		body.take_impulse(melee_push_force, mouse_direction.normalized())
