@@ -11,6 +11,8 @@ func Enter():
 
 
 func Physics_Update(delta :float):
+	if enemy.is_dead: return
+	
 	var direction = player.global_position - enemy.global_position
 	
 	if direction.length() > enemy.distance_to_attack:

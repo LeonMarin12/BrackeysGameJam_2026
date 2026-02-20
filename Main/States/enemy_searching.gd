@@ -13,6 +13,8 @@ func Enter():
 
 
 func Physics_Update(delta :float):
+	if enemy.is_dead: return
+	
 	var direction = position_to_search - enemy.global_position
 	if direction.length() > 10:
 		enemy.move_to_direction(direction.normalized())

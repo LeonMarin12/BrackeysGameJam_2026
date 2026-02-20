@@ -1,14 +1,16 @@
 [gd_scene format=3 uid="uid://jdfyk616k3cl"]
 
-[ext_resource type="Script" uid="uid://colt8hkkmf0pt" path="res://Main/Enemy/enemy.gd" id="1_6tehm"]
+[ext_resource type="Script" uid="uid://colt8hkkmf0pt" path="res://Main/Entity/Enemy/enemy.gd" id="1_6tehm"]
 [ext_resource type="PackedScene" uid="uid://88npcoe0nnkb" path="res://Main/Pickup/healing_pickup.tscn" id="2_wd2px"]
 [ext_resource type="Texture2D" uid="uid://tbfekqp2ppsm" path="res://Assets/ExternalAssets/Enemies/enemy_5 - Spritesheet.png" id="3_6tehm"]
-[ext_resource type="Script" uid="uid://b6dpk5xld7ke6" path="res://Main/Enemy/entity_detector_module.gd" id="4_g4h0a"]
+[ext_resource type="Script" uid="uid://b6dpk5xld7ke6" path="res://Main/Entity/Enemy/entity_detector_module.gd" id="4_g4h0a"]
 [ext_resource type="Script" uid="uid://chiwbvwfhq1x8" path="res://Main/States/state_machine.gd" id="5_myotq"]
 [ext_resource type="Script" uid="uid://0qk5bd8q5o38" path="res://Main/States/enemy_idle.gd" id="6_kumwl"]
 [ext_resource type="Script" uid="uid://dhignevql32fx" path="res://Main/States/enemy_follow.gd" id="7_inlor"]
 [ext_resource type="Script" uid="uid://cxb43fcddtoxq" path="res://Main/States/enemy_searching.gd" id="8_llbpf"]
 [ext_resource type="Script" uid="uid://ci3jqvc4qqapn" path="res://Main/States/enemy_attack.gd" id="9_d5ln1"]
+[ext_resource type="Script" uid="uid://bjw4e5ed0q0fb" path="res://Main/Entity/sound_manger.gd" id="10_ycl74"]
+[ext_resource type="AudioStream" uid="uid://bm6ptrbdroxon" path="res://Assets/Sounds/DetectiveGame SFX/Hit sound.mp3" id="11_04x0u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ulnfe"]
 radius = 12.0415945
@@ -152,8 +154,9 @@ position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_ulnfe")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=437354334]
-position = Vector2(0, -11)
+position = Vector2(0, -2)
 texture = ExtResource("3_6tehm")
+offset = Vector2(0, -9)
 hframes = 9
 vframes = 2
 frame = 1
@@ -218,6 +221,20 @@ one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1548183246]
 libraries/ = SubResource("AnimationLibrary_iqic2")
+
+[node name="SoundManager" type="Node2D" parent="." unique_id=1460038306]
+unique_name_in_owner = true
+script = ExtResource("10_ycl74")
+
+[node name="TakeDamage" type="AudioStreamPlayer2D" parent="SoundManager" unique_id=73296283]
+stream = ExtResource("11_04x0u")
+pitch_scale = 0.7
+
+[node name="Attack" type="AudioStreamPlayer2D" parent="SoundManager" unique_id=1607251818]
+
+[node name="Death" type="AudioStreamPlayer2D" parent="SoundManager" unique_id=1058019304]
+
+[node name="Step" type="AudioStreamPlayer2D" parent="SoundManager" unique_id=1348158933]
 
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
 [connection signal="body_entered" from="EntityDetectorModule/EntityDetectorArea" to="EntityDetectorModule" method="_on_entity_detector_area_body_entered"]

@@ -14,6 +14,7 @@ const EXPLODE_DAMAGE    = 40.0
 @onready var state_machine = %StateMachine
 @onready var attack_cooldown_timer = %AttackCooldownTimer
 @onready var sprite = $Sprite2D
+@onready var sound_manager = %SoundManager
 
 
 @export_category('Scenes')
@@ -34,6 +35,7 @@ var is_being_pushed := false
 var _ranged_timer: float = 0.0
 var _base_modulate: Color = Color.WHITE
 var _dying: bool = false
+var is_dead := false
 
 
 func _ready():
@@ -59,6 +61,9 @@ func _ready():
 
 
 func _physics_process(delta):
+	if is_dead: return
+
+	# Aplicar fricción al impulso
 	if is_being_pushed:
 		velocity = velocity.lerp(Vector2.ZERO, push_resistence)
 		if velocity.length() < 5:
@@ -84,7 +89,9 @@ func attack():
 func take_damage(damage :float = 1.0):
 	life -= damage
 	DamageNumbers.display_number(damage, global_position)
-
+	
+	sound_manager.play('TakeDamage')
+	
 	var tween = create_tween()
 	tween.tween_property(sprite, "modulate", Color.RED, 0.1)
 	tween.tween_property(sprite, "modulate", _base_modulate, 0.1)
@@ -117,8 +124,11 @@ func die() -> void:
 			drop_loot()
 		return
 	if randf() < drop_chance:
-		drop_loot()
-	queue_free()
+		is_dead = true
+	drop_loot()
+	
+	$AnimationPlayer.stop()
+	$AnimationPlayer.play('death')
 
 
 func _handle_ranged(delta: float) -> void:

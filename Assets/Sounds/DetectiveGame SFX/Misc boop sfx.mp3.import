@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dymqj17hu4i7s"
+path="res://.godot/imported/Misc boop sfx.mp3-8e2b5c4ac30bc3111f56abe73da9c2b8.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/DetectiveGame SFX/Misc boop sfx.mp3"
+dest_files=["res://.godot/imported/Misc boop sfx.mp3-8e2b5c4ac30bc3111f56abe73da9c2b8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

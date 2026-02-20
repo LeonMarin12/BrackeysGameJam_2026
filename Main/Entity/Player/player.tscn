@@ -1,16 +1,20 @@
 [gd_scene format=3 uid="uid://p3k5hxslhfb2"]
 
-[ext_resource type="Script" uid="uid://d08ydya367gsc" path="res://Main/Player/player.gd" id="1_q3lat"]
+[ext_resource type="Script" uid="uid://d08ydya367gsc" path="res://Main/Entity/Player/player.gd" id="1_q3lat"]
 [ext_resource type="Texture2D" uid="uid://dfmm62nowgh8l" path="res://Assets/Player/Player_placeholder.png" id="2_tok1r"]
-[ext_resource type="Script" uid="uid://dnn0cxapy0jxe" path="res://Main/Player/sanity_manager.gd" id="3_ddoul"]
-[ext_resource type="Script" uid="uid://b1n0peqvu12bv" path="res://Main/Player/camera_manager.gd" id="3_s1rgi"]
-[ext_resource type="Script" uid="uid://0pirmdu8kxm0" path="res://Main/Player/weapon_manager.gd" id="5_6ysni"]
+[ext_resource type="Script" uid="uid://dnn0cxapy0jxe" path="res://Main/Entity/Player/sanity_manager.gd" id="3_ddoul"]
+[ext_resource type="Script" uid="uid://b1n0peqvu12bv" path="res://Main/Entity/Player/camera_manager.gd" id="3_s1rgi"]
+[ext_resource type="Script" uid="uid://0pirmdu8kxm0" path="res://Main/Entity/Player/weapon_manager.gd" id="5_6ysni"]
 [ext_resource type="Texture2D" uid="uid://2s1x0m0ht14y" path="res://Assets/ExternalAssets/Lights/512x512 textures (38).png" id="5_y2cg6"]
-[ext_resource type="PackedScene" uid="uid://cdo4ddlvqtia2" path="res://Main/Player/Bullet/bullet.tscn" id="6_s1rgi"]
+[ext_resource type="PackedScene" uid="uid://cdo4ddlvqtia2" path="res://Main/Entity/Player/Bullet/bullet.tscn" id="6_s1rgi"]
 [ext_resource type="PackedScene" uid="uid://dw1vnnmq21muc" path="res://Main/Particles/casing.tscn" id="8_y2cg6"]
 [ext_resource type="Texture2D" uid="uid://woxbxqga6gf0" path="res://Assets/Player/minirevolver_spritesheet.png" id="9_y2cg6"]
-[ext_resource type="Script" uid="uid://dodnja7e14myb" path="res://Main/Player/interaction_manager.gd" id="10_mh6t3"]
+[ext_resource type="Script" uid="uid://dodnja7e14myb" path="res://Main/Entity/Player/interaction_manager.gd" id="10_mh6t3"]
 [ext_resource type="Shader" uid="uid://tn0du8ohh733" path="res://Resources/outline.gdshader" id="11_v6150"]
+[ext_resource type="Script" uid="uid://bjw4e5ed0q0fb" path="res://Main/Entity/sound_manger.gd" id="12_tjvpk"]
+[ext_resource type="AudioStream" uid="uid://dymqj17hu4i7s" path="res://Assets/Sounds/DetectiveGame SFX/Misc boop sfx.mp3" id="13_fswmt"]
+[ext_resource type="AudioStream" uid="uid://dfnphlp0oc02p" path="res://Assets/Sounds/DetectiveGame SFX/Revolver sfx.mp3" id="14_fswmt"]
+[ext_resource type="AudioStream" uid="uid://bm6ptrbdroxon" path="res://Assets/Sounds/DetectiveGame SFX/Hit sound.mp3" id="15_bsk03"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qn1bl"]
 radius = 6.0
@@ -64,6 +68,18 @@ tracks/3/path = NodePath("HurtBox:monitoring")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("%SoundManger/Shoot:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -152,6 +168,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [1, 0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%SoundManger/Shoot:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tjvpk"]
 _data = {
@@ -225,6 +253,24 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionManager/InteractionArea2D" unique_id=1427265059]
 shape = SubResource("CircleShape2D_v6150")
+
+[node name="SoundManger" type="Node2D" parent="." unique_id=1649126646]
+unique_name_in_owner = true
+script = ExtResource("12_tjvpk")
+
+[node name="PickItem" type="AudioStreamPlayer2D" parent="SoundManger" unique_id=1828033613]
+stream = ExtResource("13_fswmt")
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="SoundManger" unique_id=960400606]
+stream = ExtResource("14_fswmt")
+volume_db = 5.0
+
+[node name="MeleeHit" type="AudioStreamPlayer2D" parent="SoundManger" unique_id=490582838]
+stream = ExtResource("15_bsk03")
+
+[node name="TakeDamage" type="AudioStreamPlayer2D" parent="SoundManger" unique_id=1539246743]
+stream = ExtResource("15_bsk03")
+pitch_scale = 0.9
 
 [connection signal="body_entered" from="WeaponManager/HurtBox" to="WeaponManager" method="_on_hurt_box_body_entered"]
 [connection signal="body_entered" from="InteractionManager/InteractionArea2D" to="InteractionManager" method="_on_interaction_area_2d_body_entered"]

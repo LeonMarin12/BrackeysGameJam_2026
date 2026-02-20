@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dfnphlp0oc02p"
+path="res://.godot/imported/Revolver sfx.mp3-6c6610997796e80dc55159faa33b9cc8.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/DetectiveGame SFX/Revolver sfx.mp3"
+dest_files=["res://.godot/imported/Revolver sfx.mp3-6c6610997796e80dc55159faa33b9cc8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

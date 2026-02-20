@@ -2,6 +2,8 @@ extends Node2D
 
 @onready var marker = %Marker2D
 @onready var weapon_animation_player = %WeaponAnimationPlayer
+@onready var sound_manger = %SoundManger
+
 
 @export_category('Scenes')
 @export var bullet_scene :PackedScene
@@ -105,6 +107,8 @@ func apply_recoil():
 
 
 func _on_hurt_box_body_entered(body):
+	sound_manger.play('MeleeHit')
+	
 	if body.has_method('take_damage'):
 		body.take_damage(melee_damage)
 		#body.velocity += melee_push_force * mouse_direction.normalized()

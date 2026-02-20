@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cfmvdjbutdgu"
+path="res://.godot/imported/Bullet hitting wall sfx.mp3-c5858de6fa062d5cd90f6179891036fa.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/DetectiveGame SFX/Bullet hitting wall sfx.mp3"
+dest_files=["res://.godot/imported/Bullet hitting wall sfx.mp3-c5858de6fa062d5cd90f6179891036fa.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

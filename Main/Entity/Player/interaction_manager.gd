@@ -3,6 +3,8 @@ extends Node2D
 @export var player : CharacterBody2D
 @export var outline_shader :Shader
 
+@onready var sound_manger = %SoundManger
+
 var bodies_in_area : Array = []
 var selected_body = null
 var previous_selected_body = null
@@ -23,6 +25,8 @@ func _pick_item(pickup_name, value):
 		'ammo':
 			if !player.restore_ammo(value): return
 	selected_body.disappear()
+	
+	sound_manger.play('PickItem')
 
 
 func _apply_outline(body):

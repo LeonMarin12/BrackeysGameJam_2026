@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://1cm0qrro4eya"
+path="res://.godot/imported/Boop UI sound.mp3-0cd124c929ad790fd6d333a7cbd0cd88.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/DetectiveGame SFX/Boop UI sound.mp3"
+dest_files=["res://.godot/imported/Boop UI sound.mp3-0cd124c929ad790fd6d333a7cbd0cd88.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

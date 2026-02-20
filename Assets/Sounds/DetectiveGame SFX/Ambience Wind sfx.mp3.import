@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b1qh542b605av"
+path="res://.godot/imported/Ambience Wind sfx.mp3-84468f7a4f75c1e92144b987c27f1637.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/DetectiveGame SFX/Ambience Wind sfx.mp3"
+dest_files=["res://.godot/imported/Ambience Wind sfx.mp3-84468f7a4f75c1e92144b987c27f1637.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

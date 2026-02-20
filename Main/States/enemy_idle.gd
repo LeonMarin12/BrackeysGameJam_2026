@@ -39,6 +39,8 @@ func Update(delta: float):
 			randomize_wait()
 
 func Physics_Update(delta :float):
+	if enemy.is_dead: return
+	
 	if enemy:
 		if is_waiting:
 			enemy.velocity = Vector2.ZERO
