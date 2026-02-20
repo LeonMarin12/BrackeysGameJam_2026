@@ -9,8 +9,8 @@ extends CharacterBody2D
 @onready var sprite = $Sprite2D
 @onready var sound_manger = %SoundManger
 
-const HUDScript      = preload("res://Main/Player/hud.gd")
-const GameOverScript = preload("res://Main/Player/game_over.gd")
+const HUDScript      = preload('uid://c4tud6idl5ccq')
+const GameOverScript = preload('uid://cth0q6nsk86qg')
 
 var health  := max_health
 var sanity  := max_sanity

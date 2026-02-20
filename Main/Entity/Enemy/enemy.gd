@@ -4,7 +4,7 @@ class_name Enemy
 enum SpecialType { NONE, ELITE, RANGED, EXPLOSIVE, FAST }
 @export var special_type: SpecialType = SpecialType.NONE
 
-const EnemyBulletScript = preload("res://Main/Enemy/enemy_bullet.gd")
+const EnemyBulletScript = preload('uid://bcr5icimgq8vk')
 const RANGED_INTERVAL   = 2.5
 const RANGED_RANGE      = 160.0
 const EXPLODE_RADIUS    = 70.0
@@ -127,8 +127,8 @@ func die() -> void:
 		is_dead = true
 	drop_loot()
 	
-	$AnimationPlayer.stop()
-	$AnimationPlayer.play('death')
+	queue_free()
+	#$AnimationPlayer.play('death')
 
 
 func _handle_ranged(delta: float) -> void:

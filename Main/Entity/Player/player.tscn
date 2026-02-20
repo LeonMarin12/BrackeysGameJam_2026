@@ -208,6 +208,7 @@ script = ExtResource("3_s1rgi")
 [node name="SanityManager" type="Node2D" parent="." unique_id=1086953237 node_paths=PackedStringArray("player")]
 script = ExtResource("3_ddoul")
 player = NodePath("..")
+max_light_scale = 1.5
 
 [node name="PointLight2D" type="PointLight2D" parent="SanityManager" unique_id=948513229]
 unique_name_in_owner = true
