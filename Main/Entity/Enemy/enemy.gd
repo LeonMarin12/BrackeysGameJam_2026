@@ -59,7 +59,6 @@ func _ready():
 
 	_base_modulate = sprite.modulate
 
-
 func _physics_process(delta):
 	if is_dead: return
 
@@ -73,7 +72,6 @@ func _physics_process(delta):
 
 	if special_type == SpecialType.RANGED:
 		_handle_ranged(delta)
-
 
 func move_to_direction(move_direction):
 	if not is_being_pushed:
