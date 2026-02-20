@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://jdfyk616k3cl"]
 
 [ext_resource type="Script" uid="uid://colt8hkkmf0pt" path="res://Main/Entity/Enemy/enemy.gd" id="1_6tehm"]
-[ext_resource type="PackedScene" uid="uid://88npcoe0nnkb" path="res://Main/Pickup/healing_pickup.tscn" id="2_wd2px"]
 [ext_resource type="Texture2D" uid="uid://tbfekqp2ppsm" path="res://Assets/ExternalAssets/Enemies/enemy_5 - Spritesheet.png" id="3_6tehm"]
 [ext_resource type="Script" uid="uid://b6dpk5xld7ke6" path="res://Main/Entity/Enemy/entity_detector_module.gd" id="4_g4h0a"]
 [ext_resource type="Script" uid="uid://chiwbvwfhq1x8" path="res://Main/States/state_machine.gd" id="5_myotq"]
@@ -9,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dhignevql32fx" path="res://Main/States/enemy_follow.gd" id="7_inlor"]
 [ext_resource type="Script" uid="uid://cxb43fcddtoxq" path="res://Main/States/enemy_searching.gd" id="8_llbpf"]
 [ext_resource type="Script" uid="uid://ci3jqvc4qqapn" path="res://Main/States/enemy_attack.gd" id="9_d5ln1"]
+[ext_resource type="Animation" uid="uid://dofsv7tk8n3xt" path="res://Resources/death.res" id="9_ycl74"]
 [ext_resource type="Script" uid="uid://bjw4e5ed0q0fb" path="res://Main/Entity/sound_manger.gd" id="10_ycl74"]
 [ext_resource type="AudioStream" uid="uid://bm6ptrbdroxon" path="res://Assets/Sounds/DetectiveGame SFX/Hit sound.mp3" id="11_04x0u"]
 
@@ -137,6 +137,7 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_mb6jb"),
 &"attack": SubResource("Animation_3kqtw"),
+&"death": ExtResource("9_ycl74"),
 &"idle": SubResource("Animation_yynbb"),
 &"walk": SubResource("Animation_5gxkj")
 }
@@ -145,7 +146,6 @@ _data = {
 collision_layer = 2
 collision_mask = 27
 script = ExtResource("1_6tehm")
-loot_scene = ExtResource("2_wd2px")
 move_speed = 25.0
 distance_to_attack = 30.0
 
@@ -155,6 +155,7 @@ shape = SubResource("CircleShape2D_ulnfe")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=437354334]
 position = Vector2(0, -2)
+rotation = 12.566371
 texture = ExtResource("3_6tehm")
 offset = Vector2(0, -9)
 hframes = 9
