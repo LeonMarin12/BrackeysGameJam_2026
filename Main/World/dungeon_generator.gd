@@ -367,7 +367,7 @@ func _place_spawn(room: Rect2i) -> void:
 	_spawn.name     = "SpawnPoint"
 	var centre      := room.position + room.size / 2
 	_spawn.position = Vector2(centre.x * TILE_SIZE, centre.y * TILE_SIZE)
-	get_parent().add_child(_spawn)
+	get_parent().add_child.call_deferred(_spawn)
 
 
 func _setup_wall_collisions() -> void:

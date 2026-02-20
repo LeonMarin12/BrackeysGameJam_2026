@@ -19,7 +19,8 @@ config/icon="res://icon.svg"
 
 DamageNumbers="*uid://devfqnq1uxaec"
 GlobalEvents="*uid://l1qf7kvfkln7"
-GlobalVariables="*uid://cl3k6jvyk1fp5"
+GlobalVariables="*res://Global/global_variables.gd"
+TruthManager="*res://Autoload/truth_manager.gd"
 
 [display]
 

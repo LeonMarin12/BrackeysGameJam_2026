@@ -30,23 +30,20 @@ var bullets_in_magazine = bullets_per_magazine
 
 func _process(delta):
 	look_at(get_global_mouse_position())
-	
 	mouse_direction = get_global_mouse_position() - global_position
 	if mouse_direction.x < 0: scale.y = -1
 	else: scale.y = 1
-	
-	if Input.is_action_just_pressed("shoot"):
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("shoot"):
 		interrupt_reload = true
 		if bullets_in_magazine > 0:
 			shoot()
-		else:
-			print('no quedan balas en el magazine para disparar')
-	
-	elif Input.is_action_just_pressed("hit"):
+	elif event.is_action_pressed("hit"):
 		interrupt_reload = true
 		hit()
-	
-	elif Input.is_action_just_pressed("reload"):
+	elif event.is_action_pressed("reload"):
 		interrupt_reload = false
 		reload()
 

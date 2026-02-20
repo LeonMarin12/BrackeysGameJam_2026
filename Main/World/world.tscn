@@ -4,8 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://daeykmc6yagfa" path="res://Assets/ExternalAssets/0x72_DungeonTilesetII_v1.7/atlas_floor-16x16.png" id="1_tlwt5"]
 [ext_resource type="Script" uid="uid://1oyj3wyxqt10" path="res://Main/World/world.gd" id="2_wgds0"]
 [ext_resource type="PackedScene" uid="uid://p3k5hxslhfb2" path="res://Main/Player/player.tscn" id="3_plscn"]
-[ext_resource type="PackedScene" uid="uid://cgafamafmks6e" path="res://Main/Enemy/enemy_1.tscn" id="4_enemy"]
+[ext_resource type="PackedScene" uid="uid://cgafamafmks6e" path="res://Main/Enemy/enemy_1.tscn" id="3_yp0sv"]
+[ext_resource type="PackedScene" path="res://Main/Enemy/enemy_4.tscn" id="4_fx87k"]
 [ext_resource type="PackedScene" uid="uid://88npcoe0nnkb" path="res://Main/Pickup/healing_pickup.tscn" id="5_drops"]
+[ext_resource type="PackedScene" uid="uid://stairs001" path="res://Main/Stairs/stairs.tscn" id="6_stairs"]
+[ext_resource type="PackedScene" path="res://Main/Enemy/enemy_5.tscn" id="5_w0pbx"]
 [ext_resource type="Texture2D" uid="uid://dlsm8v6ero26j" path="res://Assets/ExternalAssets/0x72_DungeonTilesetII_v1.7/atlas_walls_high-16x32.png" id="6_pkg7o"]
 [ext_resource type="PackedScene" uid="uid://c23n1ijj64c76" path="res://Main/Ambient/dark_manager.tscn" id="8_n0xby"]
 
@@ -368,8 +371,9 @@ sources/0 = SubResource("TileSetAtlasSource_deco")
 [node name="World" type="Node2D" unique_id=1471475609]
 script = ExtResource("2_wgds0")
 player_scene = ExtResource("3_plscn")
-enemy_scene = ExtResource("4_enemy")
+demon_scenes = Array[PackedScene]([ExtResource("3_yp0sv"), ExtResource("4_fx87k"), ExtResource("5_w0pbx")])
 drop_scene = ExtResource("5_drops")
+stairs_scene = ExtResource("6_stairs")
 
 [node name="FloorLayer" type="TileMapLayer" parent="." unique_id=86723657]
 position = Vector2(0, 2)

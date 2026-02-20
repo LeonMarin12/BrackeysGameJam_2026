@@ -7,10 +7,23 @@ extends CharacterBody2D
 
 @onready var weapon_manager = %WeaponManager
 
-var health := max_health
-var sanity := max_sanity
+const HUDScript      = preload("res://Main/Player/hud.gd")
+const GameOverScript = preload("res://Main/Player/game_over.gd")
+
+var health  := max_health
+var sanity  := max_sanity
+var is_dead := false
+
+
+func _ready() -> void:
+	var hud: CanvasLayer = HUDScript.new()
+	hud.player = self
+	add_child(hud)
+
 
 func _physics_process(delta):
+	if is_dead:
+		return
 	var direction = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var target_velocity = direction * speed
 	velocity = velocity.lerp(target_velocity, acceleration * delta)
@@ -50,6 +63,8 @@ func restore_ammo(value):
 	return true
 
 func take_damage(damage):
+	if is_dead:
+		return
 	health -= damage
 	GlobalEvents.shake_camera.emit(0.35, 0.8)
 	DamageNumbers.display_number(damage, global_position)
@@ -58,4 +73,8 @@ func take_damage(damage):
 
 
 func die():
-	print('YOU DIE')
+	if is_dead:
+		return
+	is_dead = true
+	var game_over: CanvasLayer = GameOverScript.new()
+	get_tree().root.add_child(game_over)

@@ -6,7 +6,7 @@ class_name Pickup
 
 func take_impulse(push_force, direction):
 	apply_impulse(push_force * direction)
-	apply_torque_impulse(push_force * direction.x )
+	apply_torque_impulse(push_force * randf_range(-1.0, 1.0))
 
 
 func disappear():

@@ -1,4 +1,14 @@
 extends CharacterBody2D
+class_name Enemy
+
+enum SpecialType { NONE, ELITE, RANGED, EXPLOSIVE, FAST }
+@export var special_type: SpecialType = SpecialType.NONE
+
+const EnemyBulletScript = preload("res://Main/Enemy/enemy_bullet.gd")
+const RANGED_INTERVAL   = 2.5
+const RANGED_RANGE      = 160.0
+const EXPLODE_RADIUS    = 70.0
+const EXPLODE_DAMAGE    = 40.0
 
 @onready var entity_detector = %EntityDetectorModule
 @onready var state_machine = %StateMachine
@@ -7,7 +17,7 @@ extends CharacterBody2D
 
 
 @export_category('Scenes')
-@export var loot_scene :PackedScene
+@export_range(0.0, 1.0) var drop_chance: float = 0.4
 
 @export_category('Statistics')
 @export var max_life :float = 90.0
@@ -21,25 +31,43 @@ extends CharacterBody2D
 var life = max_life
 var can_attack := true
 var is_being_pushed := false
+var _ranged_timer: float = 0.0
+var _base_modulate: Color = Color.WHITE
+var _dying: bool = false
 
 
 func _ready():
-	
-	# Conectar señales del detector de entidades
 	entity_detector.player_detected_with_los.connect(_on_player_detected_with_los)
 	entity_detector.player_hid_behind_wall.connect(_on_player_hid_behind_wall)
 
+	match special_type:
+		SpecialType.ELITE:
+			scale *= 2.0;  max_life *= 3.0;  life = max_life
+			attack_damage *= 2.0;  distance_to_attack *= 2.0
+			sprite.modulate = Color(1.0, 0.4, 0.4)
+		SpecialType.RANGED:
+			scale *= 1.5
+			sprite.modulate = Color(0.9, 0.9, 0.2)
+		SpecialType.EXPLOSIVE:
+			scale *= 1.5;  max_life *= 1.5;  life = max_life
+			sprite.modulate = Color(1.0, 0.55, 0.1)
+		SpecialType.FAST:
+			scale *= 0.8;  move_speed *= 3.0;  attack_cooldown *= 0.4
+			sprite.modulate = Color(0.6, 0.2, 1.0)
+
+	_base_modulate = sprite.modulate
+
 
 func _physics_process(delta):
-	# Aplicar fricción al impulso
 	if is_being_pushed:
 		velocity = velocity.lerp(Vector2.ZERO, push_resistence)
-		# Detener el empuje cuando la velocidad es muy baja
 		if velocity.length() < 5:
 			velocity = Vector2.ZERO
 			is_being_pushed = false
-	
 	move_and_slide()
+
+	if special_type == SpecialType.RANGED:
+		_handle_ranged(delta)
 
 
 func move_to_direction(move_direction):
@@ -56,12 +84,11 @@ func attack():
 func take_damage(damage :float = 1.0):
 	life -= damage
 	DamageNumbers.display_number(damage, global_position)
-	
-	# Efecto visual de daño
+
 	var tween = create_tween()
 	tween.tween_property(sprite, "modulate", Color.RED, 0.1)
-	tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
-	
+	tween.tween_property(sprite, "modulate", _base_modulate, 0.1)
+
 	if life <= 0:
 		die()
 
@@ -69,19 +96,55 @@ func take_damage(damage :float = 1.0):
 func take_impulse(push_force, direction):
 	velocity = push_force * direction * (1 - push_resistence) * 10
 	is_being_pushed = true
-	
-	
 
 
-func drop_loot():
-	var loot =  loot_scene.instantiate()
+func drop_loot() -> void:
+	var scene: PackedScene = GlobalVariables.get_random_pickup()
+	if scene == null:
+		return
+	var loot := scene.instantiate()
 	loot.global_position = global_position
 	get_tree().root.call_deferred("add_child", loot)
 
 
-func die():
-	drop_loot()
+func die() -> void:
+	if _dying:
+		return
+	_dying = true
+	if special_type == SpecialType.EXPLOSIVE:
+		_explode()
+		if randf() < drop_chance:
+			drop_loot()
+		return
+	if randf() < drop_chance:
+		drop_loot()
 	queue_free()
+
+
+func _handle_ranged(delta: float) -> void:
+	_ranged_timer -= delta
+	if _ranged_timer > 0.0:
+		return
+	var player := get_tree().get_first_node_in_group("player")
+	if player == null or player.is_dead:
+		return
+	if global_position.distance_to(player.global_position) > RANGED_RANGE:
+		return
+	_ranged_timer = RANGED_INTERVAL
+	var bullet := EnemyBulletScript.new()
+	get_tree().root.add_child(bullet)
+	bullet.global_position = global_position
+	bullet.rotation = global_position.angle_to_point(player.global_position)
+
+
+func _explode() -> void:
+	var player := get_tree().get_first_node_in_group("player")
+	if player and not player.is_dead:
+		if global_position.distance_to(player.global_position) < EXPLODE_RADIUS:
+			player.take_damage(EXPLODE_DAMAGE)
+	var tween := create_tween()
+	tween.tween_property(self, "scale", scale * 2.5, 0.15)
+	tween.tween_callback(queue_free)
 
 
 func _on_attack_cooldown_timer_timeout():

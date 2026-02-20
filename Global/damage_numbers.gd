@@ -7,11 +7,9 @@ func display_number(value :int, position :Vector2):
 	number.z_index = 5
 	number.label_settings = LabelSettings.new()
 	
-	var color = '#FFF'
-	
-	number.label_settings.font_color = color
-	number.label_settings.font_size = 5 + value/10.0
-	number.label_settings.outline_color = '#000'
+	number.label_settings.font_color = Color.WHITE
+	number.label_settings.font_size = 5 + value / 10
+	number.label_settings.outline_color = Color.BLACK
 	number.label_settings.outline_size = 1
 	
 	call_deferred('add_child', number)
