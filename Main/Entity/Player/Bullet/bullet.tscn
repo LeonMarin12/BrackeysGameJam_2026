@@ -1,12 +1,20 @@
 [gd_scene format=3 uid="uid://cdo4ddlvqtia2"]
 
 [ext_resource type="Script" uid="uid://d3o4pa1da26ee" path="res://Main/Entity/Player/Bullet/bullet.gd" id="1_bx8u8"]
-[ext_resource type="Texture2D" uid="uid://w6uwr5pg3kh2" path="res://Assets/Player/Bullet_placeholder.png" id="2_gc56p"]
+[ext_resource type="Texture2D" uid="uid://w6uwr5pg3kh2" path="res://Assets/Player/bullet.png" id="2_3gnpr"]
 [ext_resource type="Texture2D" uid="uid://b8ei2pdwb0oh7" path="res://Assets/Player/light.png" id="3_gc56p"]
 [ext_resource type="AudioStream" uid="uid://cfmvdjbutdgu" path="res://Assets/Sounds/DetectiveGame SFX/Bullet hitting wall sfx.mp3" id="4_42h3y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bqf04"]
-radius = 7.0
+radius = 4.0
+
+[sub_resource type="Curve" id="Curve_hioju"]
+_data = [Vector2(0, 0.514451), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_1y7d6"]
+offsets = PackedFloat32Array(0.00666667, 0.443333, 1)
+colors = PackedColorArray(0.988235, 0.956863, 0.870588, 0, 0.988235, 0.956863, 0.870588, 0.498039, 1, 1, 1, 1)
 
 [sub_resource type="Animation" id="Animation_fr0g8"]
 length = 0.001
@@ -45,6 +53,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Line2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_42h3y"]
@@ -99,6 +119,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Line2D:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.43333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ornv1"]
 _data = {
@@ -114,9 +146,17 @@ script = ExtResource("1_bx8u8")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1303890411]
 shape = SubResource("CircleShape2D_bqf04")
 
+[node name="Line2D" type="Line2D" parent="." unique_id=1894895524]
+position = Vector2(-27, 0)
+points = PackedVector2Array(0, 0, 27, 0)
+width = 2.0
+width_curve = SubResource("Curve_hioju")
+gradient = SubResource("Gradient_1y7d6")
+end_cap_mode = 2
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1953883616]
-position = Vector2(-0.5, -0.5)
-texture = ExtResource("2_gc56p")
+position = Vector2(1, 0)
+texture = ExtResource("2_3gnpr")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1466828250]
 range_item_cull_mask = 3

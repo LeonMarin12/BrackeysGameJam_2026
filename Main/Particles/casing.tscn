@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dw1vnnmq21muc"]
 
 [ext_resource type="Script" uid="uid://c66jnuxkf062e" path="res://Main/Particles/bouncing_particle.gd" id="1_vjj64"]
-[ext_resource type="Texture2D" uid="uid://c2uh2cxsvarnd" path="res://Assets/Player/Casing_placeholder.png" id="2_dg4pp"]
+[ext_resource type="Texture2D" uid="uid://c2uh2cxsvarnd" path="res://Assets/Player/casing.png" id="2_dg4pp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_818eq"]
 radius = 2.0
