@@ -3,12 +3,14 @@ extends CharacterBody2D
 @onready var entity_detector = %EntityDetectorModule
 @onready var state_machine = %StateMachine
 @onready var attack_cooldown_timer = %AttackCooldownTimer
+@onready var sprite = $Sprite2D
+
 
 @export_category('Scenes')
 @export var loot_scene :PackedScene
 
 @export_category('Statistics')
-@export var life :float = 90.0
+@export var max_life :float = 90.0
 @export var move_speed :float = 50.0
 @export var distance_to_attack :float = 20.0
 @export var attack_damage := 10.0
@@ -16,7 +18,7 @@ extends CharacterBody2D
 @export var attack_push_force :float = 10.0
 @export_range(0, 1) var push_resistence :float = 0.3
 
-
+var life = max_life
 var can_attack := true
 var is_being_pushed := false
 
@@ -55,6 +57,11 @@ func take_damage(damage :float = 1.0):
 	life -= damage
 	DamageNumbers.display_number(damage, global_position)
 	
+	# Efecto visual de daño
+	var tween = create_tween()
+	tween.tween_property(sprite, "modulate", Color.RED, 0.1)
+	tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
+	
 	if life <= 0:
 		die()
 
@@ -62,6 +69,8 @@ func take_damage(damage :float = 1.0):
 func take_impulse(push_force, direction):
 	velocity = push_force * direction * (1 - push_resistence) * 10
 	is_being_pushed = true
+	
+	
 
 
 func drop_loot():
@@ -80,7 +89,7 @@ func _on_attack_cooldown_timer_timeout():
 
 
 func _on_animation_player_animation_finished(anim_name):
-	if anim_name == 'attack':
+	if anim_name == 'attack' or anim_name == 'take_damage':
 		state_machine.transition_to('EnemyFollow')
 
 

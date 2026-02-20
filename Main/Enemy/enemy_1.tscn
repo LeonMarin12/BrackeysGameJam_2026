@@ -57,6 +57,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_3kqtw"]
 resource_name = "attack"
@@ -67,10 +79,10 @@ tracks/0/path = NodePath("HurtBox:monitoring")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.33333334, 0.43333334, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.33333334, 0.43333334),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [false, true, true, false]
+"values": [false, true, false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -150,6 +162,7 @@ position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_ulnfe")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=437354334]
+position = Vector2(0, -1)
 texture = ExtResource("3_5an88")
 hframes = 9
 vframes = 2

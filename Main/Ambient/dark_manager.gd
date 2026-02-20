@@ -1,6 +1,6 @@
 extends CanvasModulate
 
-var dark_color = Color(0.193, 0.193, 0.193, 1.0)
+var dark_color = Color(0.107, 0.107, 0.107, 1.0)
 var bright_color = Color(1.0, 1.0, 1.0, 1.0) 
 
 

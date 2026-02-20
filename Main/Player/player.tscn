@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d08ydya367gsc" path="res://Main/Player/player.gd" id="1_q3lat"]
 [ext_resource type="Texture2D" uid="uid://dfmm62nowgh8l" path="res://Assets/Player/Player_placeholder.png" id="2_tok1r"]
-[ext_resource type="Script" uid="uid://dnn0cxapy0jxe" path="res://Main/Player/light_manager.gd" id="3_ddoul"]
+[ext_resource type="Script" uid="uid://dnn0cxapy0jxe" path="res://Main/Player/sanity_manager.gd" id="3_ddoul"]
 [ext_resource type="Script" uid="uid://b1n0peqvu12bv" path="res://Main/Player/camera_manager.gd" id="3_s1rgi"]
 [ext_resource type="Script" uid="uid://0pirmdu8kxm0" path="res://Main/Player/weapon_manager.gd" id="5_6ysni"]
 [ext_resource type="Texture2D" uid="uid://2s1x0m0ht14y" path="res://Assets/ExternalAssets/Lights/512x512 textures (38).png" id="5_y2cg6"]
@@ -177,10 +177,12 @@ texture = ExtResource("2_tok1r")
 [node name="CameraManager" type="Camera2D" parent="." unique_id=1949400709]
 script = ExtResource("3_s1rgi")
 
-[node name="SanityManager" type="Node2D" parent="." unique_id=1086953237]
+[node name="SanityManager" type="Node2D" parent="." unique_id=1086953237 node_paths=PackedStringArray("player")]
 script = ExtResource("3_ddoul")
+player = NodePath("..")
 
 [node name="PointLight2D" type="PointLight2D" parent="SanityManager" unique_id=948513229]
+unique_name_in_owner = true
 texture = ExtResource("5_y2cg6")
 
 [node name="WeaponManager" type="Node2D" parent="." unique_id=2089479805]
